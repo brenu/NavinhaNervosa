@@ -23,6 +23,12 @@ function Game:update(dt)
     for i, enemy in pairs(enemyList) do
         enemy:update(dt)
 
+        if Game:verifyCollision(enemy, ship) then
+            table.remove(enemyList, i)
+
+            ship:loseHP()
+        end
+
         if enemy:isOutOfView() then
             table.remove(enemyList, i)
         end
@@ -31,6 +37,8 @@ function Game:update(dt)
             if Game:verifyCollision(enemy, shoot) then
                 table.remove(enemyList, i)
                 table.remove(ship.shootList, j)
+                
+                ship:updateScore(enemy.score)
             end
         end
     end
@@ -42,6 +50,12 @@ function Game:draw()
     for i, enemy in pairs(enemyList) do
         enemy:draw()
     end
+
+    for i = 1, ship.hp do
+        love.graphics.draw(ship.image, 20*i, 30, 0, 0.2)
+    end
+
+    love.graphics.print("Score: "..ship.score, 20, 50, 0, 1.3)
 end
 
 function Game:newEnemy()

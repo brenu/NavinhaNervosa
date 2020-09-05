@@ -8,7 +8,10 @@ function Ship:new()
     self.width = self.image:getWidth()
     self.height = self.image:getHeight()
     self.speed = 500
-
+    
+    self.hp = 3
+    self.score = 0
+    
     self.shootList = {}
 end
 
@@ -69,4 +72,16 @@ function Ship:shoot(dt)
     local shoot = Shoot(self.x + self.width/2, self.y)
 
     table.insert(self.shootList, shoot)
+end
+
+function Ship:updateScore(enemyScore)
+    self.score = self.score + enemyScore
+end
+
+function Ship:earnHP()
+    self.hp = self.hp + 1
+end
+
+function Ship:loseHP()
+    self.hp = self.hp - 1
 end
