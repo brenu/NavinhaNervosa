@@ -1,6 +1,10 @@
+screenWidth = love.graphics.getWidth()
+screenHeight = love.graphics.getHeight()
+
 function love.load()
-    Class = require "classic.lua"
-    require "game.lua"
+    Class = require "classic"
+    require "game"
+    require "ship"
 
     game = Game()
 end

@@ -1,16 +1,13 @@
 Game = Class:extend()
 
 function Game:new()
-    require "ship.lua"
-
     ship = Ship()
-
 end
 
 function Game:update(dt)
-    Ship:update(dt)
+    ship:update(dt)
 end
 
 function Game:draw()
-    Ship:draw()
+    ship:draw()
 end
