@@ -4,7 +4,6 @@ screenHeight = love.graphics.getHeight()
 function love.load()
     Class = require "classic"
     require "game"
-    require "ship"
 
     game = Game()
 end
