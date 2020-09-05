@@ -3,15 +3,26 @@ screenHeight = love.graphics.getHeight()
 
 function love.load()
     Class = require "classic"
-    require "game"
+    require "scenes/game"
+    require "scenes/menu"
+    require "scenes/gameOver"
 
     game = Game()
+    menu = Menu()
+    gameOver = GameOver()
+
+    scenes = {
+        game = game,
+        menu = menu,
+        gameOver = gameOver
+    }
+    presentScene = "menu"
 end
 
 function love.update(dt)
-    game:update(dt)
+    scenes[presentScene]:update(dt)
 end
 
 function love.draw()
-    game:draw()
+    scenes[presentScene]:draw()
 end
