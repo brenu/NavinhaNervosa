@@ -7,10 +7,12 @@ function Ship:new()
     self.x, self.y = 400,300
     self.width = self.image:getWidth()
     self.height = self.image:getHeight()
-    self.speed = 500
+    self.speed = 400
     
     self.hp = 3
     self.score = 0
+
+    self.damage = 1
     
     self.shootList = {}
 end
@@ -84,4 +86,16 @@ end
 
 function Ship:loseHP()
     self.hp = self.hp - 1
+end
+
+function Ship:incrementShoots()
+    self.damage = self.damage + 1
+end
+
+function Ship:incrementSpeed()
+    self.speed = self.speed + 10
+end
+
+function Ship:normalizeSpeed()
+    self.speed = 400
 end
