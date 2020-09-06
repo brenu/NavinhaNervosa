@@ -27,6 +27,11 @@ function Game:new()
     }
 
     levelIndex = 1
+
+    self.gameTheme = love.audio.newSource("assets/sounds/game_theme.wav", "stream")
+    self.gameTheme:setLooping(true)
+
+    self.pickItemSound = love.audio.newSource("assets/sounds/pick_item.ogg", "static")
 end
 
 function Game:update(dt)
@@ -43,15 +48,20 @@ function Game:update(dt)
     for i, enemy in pairs(enemyList) do
         enemy:update(dt)
 
-        if Game:verifyCollision(enemy, ship) then
+        if Game:verifyCollision(enemy, ship) then            
             table.remove(enemyList, i)
             
             ship:loseHP()
             ship:normalizeSpeed()
             ship:normalizeDamage()
 
+            local explosion = love.audio.newSource("assets/sounds/explosion.ogg", "static")
+            explosion:play()
+
             if ship.hp <= 0 then
                 presentScene = "gameOver"
+                self.gameTheme:stop()
+                gameOver.loseTheme:play()
             end
         end
 
@@ -61,8 +71,14 @@ function Game:update(dt)
 
         for j, shoot in pairs(ship.shootList) do
             if Game:verifyCollision(enemy, shoot) then
+                local shootCollisionSound = love.audio.newSource("assets/sounds/shoot_collision.wav", "static")
+                shootCollisionSound:play()
+
                 enemy.hp = enemy.hp - ship.damage
                 if enemy.hp <= 0 then
+                    local explosionSound = love.audio.newSource("assets/sounds/explosion.ogg", "static")
+                    explosionSound:play()
+
                     table.remove(enemyList, i)
                     ship:updateScore(enemy.score)
     
@@ -82,6 +98,8 @@ function Game:update(dt)
         end
 
         if Game:verifyCollision(item, ship) then
+            self.pickItemSound:play()
+
             if item.type == 1 then
                 ship:incrementShoots()
             elseif item.type == 2 then

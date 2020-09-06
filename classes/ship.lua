@@ -16,6 +16,8 @@ function Ship:new()
     self.shootTimer = 0
     
     self.shootList = {}
+
+    self.shootSound = love.audio.newSource("assets/sounds/shoot.wav", "static")
 end
 
 function Ship:update(dt)
@@ -74,6 +76,8 @@ function Ship:keepInsideView()
 end
 
 function Ship:shoot(dt)
+    self.shootSound:play()
+
     local shoot = Shoot(self.x + self.width/2, self.y)
 
     table.insert(self.shootList, shoot)

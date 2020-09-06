@@ -10,12 +10,18 @@ function Menu:new()
     self.selectedOption = 1
 
     self.optionTime = 0
+
+    self.menuSong = love.audio.newSource("assets/sounds/menu.ogg", "stream")
+    self.menuSong:play()
 end
 
 function Menu:update(dt)
     self.optionTime = self.optionTime + dt
 
     if love.keyboard.isDown("up", "down") and self.optionTime > 0.2 then
+        local optionChangeSound = love.audio.newSource("assets/sounds/menu_option.ogg", "static")
+        optionChangeSound:play()
+
         if self.selectorY == screenHeight/2 + 50 then
             self.selectorY = screenHeight/2 + 50 * 2
             self.selectedOption = 2
@@ -28,10 +34,15 @@ function Menu:update(dt)
     end
 
     if love.keyboard.isDown("space") and self.optionTime > 0.2 then
+        local selectedOptionSound = love.audio.newSource("assets/sounds/menu_option_select.ogg", "static")
+        selectedOptionSound:play()
+
         self.optionTime = 0
         if self.selectedOption == 1 then
             presentScene = "game"
             game:new()
+            self.menuSong:stop()
+            game.gameTheme:play()
         elseif self.selectedOption == 2 then
             love.event.quit()
         end
