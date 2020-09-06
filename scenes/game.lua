@@ -108,6 +108,7 @@ function Game:draw()
         item:draw()
     end
 
+    love.graphics.setFont(font20)
     love.graphics.print("Score: "..ship.score, 20, 50, 0, 1.3)
 end
 

@@ -17,6 +17,9 @@ function love.load()
         gameOver = gameOver
     }
     presentScene = "menu"
+
+    font20 = love.graphics.newFont("assets/fonts/visitor1.ttf", 20)
+    font30 = love.graphics.newFont("assets/fonts/visitor1.ttf", 30)
 end
 
 function love.update(dt)

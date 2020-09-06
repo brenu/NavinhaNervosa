@@ -13,5 +13,6 @@ end
 function GameOver:draw()
     love.graphics.draw(self.image)
 
-    love.graphics.print("Press space to go back", 330, screenHeight/2+100)
+    love.graphics.setFont(font30)
+    love.graphics.print("Press space to go back", 210, screenHeight/2+100)
 end

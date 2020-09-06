@@ -5,7 +5,7 @@ function Menu:new()
     self.options = {"Play", "Exit"}
 
     self.selectorIcon = love.graphics.newImage("assets/images/ship.png")
-    self.selectorX = screenWidth/2 - 40
+    self.selectorX = screenWidth/2 - 60
     self.selectorY = screenHeight/2 + 50
     self.selectedOption = 1
 
@@ -41,9 +41,11 @@ end
 function Menu:draw()
     love.graphics.draw(self.image)
 
+    love.graphics.setFont(font30)
+
     for i=1, #self.options do
-        love.graphics.print(self.options[i], screenWidth/2 - 20, screenHeight/2 + 50*i)
+        love.graphics.print(self.options[i], screenWidth/2-40, screenHeight/2 + 50*i)
     end
 
-    love.graphics.draw(self.selectorIcon, self.selectorX, self.selectorY-7, 1.5, 0.3);
+    love.graphics.draw(self.selectorIcon, self.selectorX, self.selectorY, 1.5, 0.3);
 end
