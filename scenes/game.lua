@@ -10,14 +10,32 @@ function Game:new()
     enemyTime = 0
     enemyList = {}
     itemList = {}
+
+    level = {
+        -- XPosition, Speed, Time to show up
+        {100, 75, 2},
+        {200, 75, 2},
+        {300, 75, 2},
+        {700, 150, 1},
+        {600, 150, 1},
+        {500, 150, 1},
+        {150, 200, 1},
+        {0, 200, 1},
+        {650, 200, 1},
+        {500, 250, 3},
+        {230, 300, 3},
+    }
+
+    levelIndex = 1
 end
 
 function Game:update(dt)
     enemyTime = enemyTime + dt
 
-    if enemyTime > 1 then
-        Game:newEnemy()
+    if levelIndex <= #level and enemyTime > level[levelIndex][3] then
+        Game:newEnemy(level[levelIndex][1], level[levelIndex][2])
         enemyTime = 0
+        levelIndex = levelIndex + 1
     end
 
     ship:update(dt)
@@ -93,8 +111,8 @@ function Game:draw()
     love.graphics.print("Score: "..ship.score, 20, 50, 0, 1.3)
 end
 
-function Game:newEnemy()
-    local enemy = Enemy(love.math.random(0, 700), -100, 100)
+function Game:newEnemy(x, speed)
+    local enemy = Enemy(x, -100, speed)
 
     table.insert(enemyList, enemy)
 end
