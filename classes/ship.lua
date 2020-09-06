@@ -13,6 +13,7 @@ function Ship:new()
     self.score = 0
 
     self.damage = 1
+    self.shootTimer = 0
     
     self.shootList = {}
 end
@@ -29,7 +30,9 @@ function Ship:update(dt)
         end
     end
 
-    if love.keyboard.isDown("space") then
+    self.shootTimer = self.shootTimer+dt
+    if love.keyboard.isDown("space") and self.shootTimer > 0.2 then
+        self.shootTimer = 0
         self:shoot(dt)
     end
 end
@@ -89,7 +92,7 @@ function Ship:loseHP()
 end
 
 function Ship:incrementShoots()
-    self.damage = self.damage + 1
+    self.damage = self.damage + 0.1
 end
 
 function Ship:incrementSpeed()
@@ -98,4 +101,8 @@ end
 
 function Ship:normalizeSpeed()
     self.speed = 400
+end
+
+function Ship:normalizeDamage()
+    self.damage = 1
 end

@@ -30,6 +30,7 @@ function Game:update(dt)
             
             ship:loseHP()
             ship:normalizeSpeed()
+            ship:normalizeDamage()
 
             if ship.hp <= 0 then
                 presentScene = "gameOver"
@@ -42,12 +43,15 @@ function Game:update(dt)
 
         for j, shoot in pairs(ship.shootList) do
             if Game:verifyCollision(enemy, shoot) then
-                table.remove(enemyList, i)
+                enemy.hp = enemy.hp - ship.damage
+                if enemy.hp <= 0 then
+                    table.remove(enemyList, i)
+                    ship:updateScore(enemy.score)
+    
+                    Game:newItem(enemy.x, enemy.y)
+                end
                 table.remove(ship.shootList, j)
                 
-                ship:updateScore(enemy.score)
-
-                Game:newItem(enemy.x, enemy.y)
             end
         end
     end
@@ -90,7 +94,7 @@ function Game:draw()
 end
 
 function Game:newEnemy()
-    local enemy = Enemy(love.math.random(0, 700), -100, 200)
+    local enemy = Enemy(love.math.random(0, 700), -100, 100)
 
     table.insert(enemyList, enemy)
 end

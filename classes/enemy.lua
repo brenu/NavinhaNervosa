@@ -8,6 +8,8 @@ function Enemy:new(x, y, speed)
     self.speed = speed
 
     self.score = 1
+
+    self.hp = 3
 end
 
 function Enemy:update(dt)
@@ -16,6 +18,10 @@ end
 
 function Enemy:draw()
     love.graphics.draw(self.image, self.x, self.y)
+
+    love.graphics.setColor(1,0,0)
+    love.graphics.rectangle("fill", self.x, self.y - 20, self.width * self.hp/3, 3)
+    love.graphics.setColor(1,1,1)
 end
 
 function Enemy:isOutOfView()
