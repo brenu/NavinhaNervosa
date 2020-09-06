@@ -2,8 +2,9 @@ Shoot = Class:extend()
 
 function Shoot:new(x, y)
     self.x, self.y = x, y
-    self.width = 3
-    self.height = 8
+    self.image = love.graphics.newImage("assets/images/shoot.png")
+    self.width = self.image:getWidth()
+    self.height = self.image:getHeight()
     self.speed = 1000
 end 
 
@@ -12,7 +13,7 @@ function Shoot:update(dt)
 end
 
 function Shoot:draw()
-    love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+    love.graphics.draw(self.image, self.x, self.y)
 end
 
 function Shoot:isOutOfView()

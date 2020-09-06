@@ -78,7 +78,7 @@ end
 function Ship:shoot(dt)
     self.shootSound:play()
 
-    local shoot = Shoot(self.x + self.width/2, self.y)
+    local shoot = Shoot(self.x + self.width/2-5, self.y)
 
     table.insert(self.shootList, shoot)
 end

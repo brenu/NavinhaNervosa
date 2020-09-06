@@ -4,6 +4,7 @@ function Game:new()
     require "../classes/ship"
     require "../classes/enemy"
     require "../classes/item"
+    require "../classes/background"
 
     ship = Ship()
 
@@ -32,6 +33,9 @@ function Game:new()
     self.gameTheme:setLooping(true)
 
     self.pickItemSound = love.audio.newSource("assets/sounds/pick_item.ogg", "static")
+
+    self.backgroundOne = Background(0,0)
+    self.backgroundTwo = Background(0,600)
 end
 
 function Game:update(dt)
@@ -109,9 +113,14 @@ function Game:update(dt)
             table.remove(itemList, i)
         end
     end
+
+    self.backgroundOne:update(dt)
+    self.backgroundTwo:update(dt)
 end
 
 function Game:draw()
+    self.backgroundOne:draw()
+    self.backgroundTwo:draw()
     ship:draw()
 
     for i, enemy in pairs(enemyList) do
